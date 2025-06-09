@@ -5,10 +5,10 @@ import EditTodo from "./components/EditTodo.tsx";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {useState} from "react";
 
-interface Todo{
-    id:number;
-    name:string;
-    isDone:boolean;
+export interface Todo{
+    id: number;
+    name: string;
+    isDone: boolean;
 }
 
 const App = () => {
@@ -26,13 +26,24 @@ const App = () => {
         ])
     }
 
+    const deleteTodo = (id: number) => {
+        setTodos(todos.filter(todo => todo.id !== id))
+    }
+
+    const doneTodo = (id: number) => {
+        let newtodos = [...todos];
+        let todoIndex = newtodos.findIndex(todo => Number(todo.id) === Number(id));
+        newtodos[todoIndex].isDone = !newtodos[todoIndex].isDone;
+        setTodos(newtodos);
+    }
+
     return (
         <div className={"h-screen w-screen bg-gray-900"}>
             <div className={"container mx-auto pt-4"}>
                 <Header />
                 <Routes>
                     <Route path={"/"} element={<Navigate to={"/todos"} />} />
-                    <Route path={"/todos"} element={<Todos />} />
+                    <Route path={"/todos"} element={<Todos deleteTodo={deleteTodo} todos={todos} doneTodo={doneTodo} />} />
                     <Route path={"/todos/add"} element={<AddTodo addNewTodo={addNewTodo} />} />
                     <Route path={"/todos/:id/edit"} element={<EditTodo />} />
                 </Routes>

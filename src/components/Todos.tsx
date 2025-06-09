@@ -1,6 +1,13 @@
 import {Link} from "react-router-dom";
+import type {Todo} from "../App.tsx";
 
-const Todos = () => {
+interface TodosProp{
+    todos : Todo[],
+    deleteTodo : (id : number) => void,
+    doneTodo : (id : number) => void,
+}
+
+const Todos = ({ todos,deleteTodo,doneTodo } : TodosProp) => {
     return (
         <>
             <div className={"flex justify-between"}>
@@ -31,32 +38,37 @@ const Todos = () => {
                 </p>
             </div>
 
-            <div className={"flex justify-between mt-20 text-sm text-white"}>
-                <p className={"text-right"}>
-                    1
-                </p>
-                <p className={"text-right"}>
-                    یادگیری React
-                </p>
-                <p className={"text-right"}>
-                    انجام شده
-                </p>
-                <p>
+            {todos.map(todo => (
+                <div className={"flex justify-between mt-20 text-sm text-white"} key={todo.id}>
+                    <p className={"text-right"}>
+                        {todo.id}
+                    </p>
+                    <p className={"text-right"}>
+                        {todo.name}
+                    </p>
+                    <p className={"text-right"}>
+                        {todo.isDone ? 'انجام شده' : 'انجام نشده'}
+                    </p>
+                    <p>
 
-                    <button
-                        className={"text-white bg-red-600 p-2 rounded-xl text-xs hover:shadow-red-600 hover:shadow transition mx-1"}>حذف
-                    </button>
-                    <Link
-                        to={`/todos/4/edit`}
-                        className={"text-white bg-green-600 p-2 rounded-xl text-xs hover:shadow-green-600 hover:shadow transition mx-1"}>
-                         ویرایش
-                    </Link>
-                    <button
-                        className={"text-white bg-blue-600 p-2 rounded-xl text-xs hover:shadow-blue-600 hover:shadow transition mx-1"}>عوض کردن وضعیت
-                    </button>
+                        <button
+                            onClick={() => deleteTodo(todo.id)}
+                            className={"text-white bg-red-600 p-2 rounded-xl text-xs hover:shadow-red-600 hover:shadow transition mx-1"}>حذف
+                        </button>
+                        <Link
+                            to={`/todos/${todo.id}/edit`}
+                            className={"text-white bg-green-600 p-2 rounded-xl text-xs hover:shadow-green-600 hover:shadow transition mx-1"}>
+                            ویرایش
+                        </Link>
+                        <button
+                            onClick={() => doneTodo(todo.id)}
+                            className={"text-white bg-blue-600 p-2 rounded-xl text-xs hover:shadow-blue-600 hover:shadow transition mx-1"}>عوض کردن وضعیت
+                        </button>
 
-                </p>
-            </div>
+                    </p>
+                </div>
+            ))}
+
         </>
     )
 }
