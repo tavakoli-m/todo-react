@@ -1,10 +1,12 @@
+import Header from "./components/Header.tsx";
+
 const App = () => {
     return (
-        <>
-            <h1 className="text-3xl font-bold">
-                سلام دنیا
-            </h1>
-        </>
+        <div className={"h-screen w-screen bg-gray-900"}>
+            <div className={"container mx-auto pt-4"}>
+                <Header />
+            </div>
+        </div>
     )
 }
 
