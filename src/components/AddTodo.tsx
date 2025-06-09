@@ -1,11 +1,13 @@
+import {Link} from "react-router-dom";
+
 const AddTodo = () => {
     return (
         <>
             <div className={"flex justify-between"}>
-                <button
+                <Link
+                    to={"/todos"}
                     className={"text-white bg-purple-600 p-2 rounded-xl text-xs hover:shadow-purple-600 hover:shadow transition"}>برگشت
-
-                </button>
+                </Link>
 
                 <h2 className={"text-purple-600 text-base"}>
                     ساخت کار جدید

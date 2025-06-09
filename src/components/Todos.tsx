@@ -1,11 +1,14 @@
+import {Link} from "react-router-dom";
+
 const Todos = () => {
     return (
         <>
             <div className={"flex justify-between"}>
-                <button
+                <Link
+                    to={"/todos/add"}
                     className={"text-white bg-purple-600 p-2 rounded-xl text-xs hover:shadow-purple-600 hover:shadow transition"}>ساخت
                     کار جدید
-                </button>
+                </Link>
 
                 <h2 className={"text-purple-600 text-base"}>
                     لیست کار ها
@@ -42,10 +45,11 @@ const Todos = () => {
                     <button
                         className={"text-white bg-red-600 p-2 rounded-xl text-xs hover:shadow-red-600 hover:shadow transition mx-1"}>حذف
                     </button>
-                    <button
+                    <Link
+                        to={`/todos/4/edit`}
                         className={"text-white bg-green-600 p-2 rounded-xl text-xs hover:shadow-green-600 hover:shadow transition mx-1"}>
                          ویرایش
-                    </button>
+                    </Link>
                     <button
                         className={"text-white bg-blue-600 p-2 rounded-xl text-xs hover:shadow-blue-600 hover:shadow transition mx-1"}>عوض کردن وضعیت
                     </button>
