@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import type {Todo} from "../App.tsx";
+import * as React from "react";
 
 interface TodosProp{
     todos : Todo[],
@@ -18,9 +19,9 @@ const Todos = ({ todos,deleteTodo,doneTodo } : TodosProp) => {
                 </Link>
 
 
-                <input type="text" id="search"
-                       className="bg-gray-50 border max-w-46 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="جستجو"/>
+                <h2 className={"text-purple-600 text-base"}>
+                    لیست کار ها
+                </h2>
             </div>
 
             <div className={"flex justify-between mt-20 text-sm text-white"}>
