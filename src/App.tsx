@@ -1,4 +1,5 @@
 import Header from "./components/Header.tsx";
+import Todos from "./components/Todos.tsx";
 
 const App = () => {
     return (
