@@ -1,14 +1,11 @@
-// @ts-ignore
-import './App.css'
-import TodoList from "./components/TodoList.tsx";
-
-function App() {
-
-  return (
-    <div className={"App"}>
-        <TodoList/>
-    </div>
-  )
+const App = () => {
+    return (
+        <>
+            <h1>
+                App.tsx
+            </h1>
+        </>
+    )
 }
 
-export default App
+export default App;
