@@ -1,5 +1,6 @@
 import Header from "./components/Header.tsx";
 import Todos from "./components/Todos.tsx";
+import AddTodo from "./components/AddTodo.tsx";
 
 const App = () => {
     return (
