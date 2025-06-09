@@ -1,8 +1,8 @@
 const App = () => {
     return (
         <>
-            <h1>
-                App.tsx
+            <h1 className="text-3xl font-bold">
+                سلام دنیا
             </h1>
         </>
     )
