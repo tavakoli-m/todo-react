@@ -37,6 +37,17 @@ const App = () => {
         setTodos(newtodos);
     }
 
+    const editTodo = (id: number,name : string) => {
+        let newtodos = [...todos];
+        let todoIndex = newtodos.findIndex(todo => Number(todo.id) === Number(id));
+        newtodos[todoIndex].name = name;
+        setTodos(newtodos);
+    }
+
+    const getTodo = (id: number) : Todo|undefined => {
+        return todos.find(todo => Number(todo.id) === Number(id))
+    }
+
     return (
         <div className={"h-screen w-screen bg-gray-900"}>
             <div className={"container mx-auto pt-4"}>
@@ -45,7 +56,7 @@ const App = () => {
                     <Route path={"/"} element={<Navigate to={"/todos"} />} />
                     <Route path={"/todos"} element={<Todos deleteTodo={deleteTodo} todos={todos} doneTodo={doneTodo} />} />
                     <Route path={"/todos/add"} element={<AddTodo addNewTodo={addNewTodo} />} />
-                    <Route path={"/todos/:id/edit"} element={<EditTodo />} />
+                    <Route path={"/todos/:id/edit"} element={<EditTodo editTodo={editTodo} getTodo={getTodo} />} />
                 </Routes>
             </div>
         </div>
