@@ -1,13 +1,34 @@
-import type {Todo} from "../types";
+import axios from "axios";
+import type { Todo } from "../types";
 
 const baseUrl = "http://localhost:9000";
 
-export const getAllTodos : Promise<Todo[]> = () => fetch(`${baseUrl}/todos`).then((res) => res.json());
+// گرفتن همه‌ی todo ها
+export const getAllTodos = async (): Promise<Todo[]> => {
+    const response = await axios.get<Todo[]>(`${baseUrl}/todos`);
+    return response.data;
+};
 
-export const addTodo : Promise<Todo> = (todo : Exclude<Todo,"id">) => fetch(`${baseUrl}/todos`, { method: "POST", body: JSON.stringify(todo) }).then((res) => res.json());
+// افزودن todo جدید
+export const addTodo = async (todo: Omit<Todo, "id">): Promise<Todo> => {
+    const response = await axios.post<Todo>(`${baseUrl}/todos`, todo);
+    return response.data;
+};
 
-export const getTodo : Promise<Todo> = (id : number) => fetch(`${baseUrl}/todos/${id}`).then((res) => res.json());
+// گرفتن todo خاص
+export const getTodo = async (id: number): Promise<Todo> => {
+    const response = await axios.get<Todo>(`${baseUrl}/todos/${id}`);
+    return response.data;
+};
 
-export const updateTodo : Promise<Exclude<Todo,"id">> = (todo : Exclude<Todo,"id">,id : number) => fetch(`${baseUrl}/${id}`,{ method: "PUT", body: JSON.stringify(todo) }).then((res) => res.json());
+// آپدیت todo
+export const updateTodo = async (todo: Omit<Todo, "id">, id: number): Promise<Todo> => {
+    const response = await axios.put<Todo>(`${baseUrl}/todos/${id}`, todo);
+    return response.data;
+};
 
-export const deleteTodo : Promise<object> = (id : number) => fetch(`${baseUrlUrl}/${id}`, { method: "DELETE" }).then((res) => res.json())
+// حذف todo
+export const deleteTodo = async (id: number): Promise<object> => {
+    const response = await axios.delete(`${baseUrl}/todos/${id}`);
+    return response.data;
+};

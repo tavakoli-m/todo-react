@@ -11,8 +11,8 @@ export interface TodosProp{
 }
 
 export interface EditTodoProp{
-    editTodo : (id : number,name : string) => void;
-    getTodo : (id: number) => Todo|undefined
+    editTodo : (id : number,name : string|undefined) => void;
+    getTodo : (id: string) => Todo|undefined
 }
 
 export interface AddTodoProp {

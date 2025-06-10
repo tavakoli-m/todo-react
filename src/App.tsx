@@ -2,46 +2,86 @@ import Header from "./components/Header.tsx";
 import Todos from "./components/Todos.tsx";
 import AddTodo from "./components/AddTodo.tsx";
 import EditTodo from "./components/EditTodo.tsx";
-import {Navigate, Route, Routes} from "react-router-dom";
-import {useState} from "react";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import type {Todo} from "./types";
+import {getAllTodos, addTodo, deleteTodo as deleteTodoService, updateTodo} from "./services/TodoService.ts";
 
 
 const App = () => {
     const [todos,setTodos] = useState<Todo[]>([]);
+    const navigate = useNavigate()
 
-    const addNewTodo = (name: string) => {
-        setTodos([
-            ...todos,
-            {
-                id : Math.floor(Math.random()*10000),
-                name,
-                isDone:false,
+    const addNewTodo = async (name: string) => {
+        try{
+            const todo = await addTodo({name,isDone : false})
+            setTodos([
+                ...todos,
+                todo
+            ])
+            navigate("/todos")
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+
+    const deleteTodo = async (id: number) => {
+        try{
+            await deleteTodoService(id)
+            setTodos(todos.filter(todo => todo.id !== id))
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    const doneTodo = async (id: number) => {
+        try {
+            let newtodos = [...todos];
+            let todoIndex = newtodos.findIndex(todo => String(todo.id) === String(id));
+            newtodos[todoIndex].isDone = !newtodos[todoIndex].isDone;
+             updateTodo(newtodos[todoIndex],id)
+            setTodos(newtodos);
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    const editTodo = async (id: number,name : string|undefined) => {
+        console.log(id,name)
+        try{
+            let newtodos = [...todos];
+            let todoIndex = newtodos.findIndex(todo => String(todo.id) === String(id));
+            newtodos[todoIndex].name = name || "";
+            const result = await updateTodo(newtodos[todoIndex],id)
+            newtodos[todoIndex] = result
+            setTodos(newtodos);
+
+            navigate("/todos")
+        }catch (err){
+            console.log(err)
+        }
+    }
+
+    const getTodo = (id: string) : Todo|undefined => {
+        return todos.find(todo => String(todo.id) === String(id))
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const todos = await getAllTodos()
+                setTodos(todos)
             }
-        ])
-    }
+            catch (err){
+                console.log(err)
+            }
+        }
 
-    const deleteTodo = (id: number) => {
-        setTodos(todos.filter(todo => todo.id !== id))
-    }
-
-    const doneTodo = (id: number) => {
-        let newtodos = [...todos];
-        let todoIndex = newtodos.findIndex(todo => Number(todo.id) === Number(id));
-        newtodos[todoIndex].isDone = !newtodos[todoIndex].isDone;
-        setTodos(newtodos);
-    }
-
-    const editTodo = (id: number,name : string) => {
-        let newtodos = [...todos];
-        let todoIndex = newtodos.findIndex(todo => Number(todo.id) === Number(id));
-        newtodos[todoIndex].name = name;
-        setTodos(newtodos);
-    }
-
-    const getTodo = (id: number) : Todo|undefined => {
-        return todos.find(todo => Number(todo.id) === Number(id))
-    }
+        fetchData()
+    }, []);
 
     return (
         <div className={"h-screen w-screen bg-gray-900"}>

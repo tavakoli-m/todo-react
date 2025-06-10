@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useState} from "react";
 import * as React from "react";
 import type {EditTodoProp} from "../types";
@@ -7,8 +7,7 @@ import type {EditTodoProp} from "../types";
 
 const EditTodo = ({ editTodo,getTodo } : EditTodoProp) => {
     const { id } = useParams()
-    const todo = getTodo(Number(id)) || undefined
-    const navigate = useNavigate()
+    const todo = getTodo(String(id)) || undefined
     const [name,setName] = useState<string|undefined>(todo?.name)
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,12 +16,7 @@ const EditTodo = ({ editTodo,getTodo } : EditTodoProp) => {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        if(name  && name != "")
-        {
-            editTodo(Number(id),name)
-            navigate("/todos")
-        }
+         editTodo(String(id),name)
     }
 
     return (

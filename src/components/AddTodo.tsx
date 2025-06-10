@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import * as React from "react";
 import {useState} from "react";
 import type {AddTodoProp} from "../types";
@@ -7,7 +7,6 @@ import type {AddTodoProp} from "../types";
 
 const AddTodo = ({ addNewTodo } : AddTodoProp) => {
     const [name,setName] = useState<string>("")
-    const navigate = useNavigate();
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
@@ -15,12 +14,7 @@ const AddTodo = ({ addNewTodo } : AddTodoProp) => {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        if(name  && name != "")
-        {
             addNewTodo(name)
-            navigate("/todos")
-        }
     }
 
     return (

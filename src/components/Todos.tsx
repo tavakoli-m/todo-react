@@ -46,6 +46,7 @@ const Todos = ({ todos,deleteTodo,doneTodo } : TodosProp) => {
                     <p>
 
                         <button
+                            type={"button"}
                             onClick={() => deleteTodo(todo.id)}
                             className={"text-white bg-red-600 p-2 rounded-xl text-xs hover:shadow-red-600 hover:shadow transition mx-1"}>حذف
                         </button>
@@ -55,6 +56,7 @@ const Todos = ({ todos,deleteTodo,doneTodo } : TodosProp) => {
                             ویرایش
                         </Link>
                         <button
+                            type={"button"}
                             onClick={() => doneTodo(todo.id)}
                             className={"text-white bg-blue-600 p-2 rounded-xl text-xs hover:shadow-blue-600 hover:shadow transition mx-1"}>عوض کردن وضعیت
                         </button>
