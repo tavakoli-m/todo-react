@@ -4,15 +4,10 @@ import AddTodo from "./components/AddTodo.tsx";
 import EditTodo from "./components/EditTodo.tsx";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {useState} from "react";
+import type {Todo} from "./types";
 
-export interface Todo{
-    id: number;
-    name: string;
-    isDone: boolean;
-}
 
 const App = () => {
-
     const [todos,setTodos] = useState<Todo[]>([]);
 
     const addNewTodo = (name: string) => {

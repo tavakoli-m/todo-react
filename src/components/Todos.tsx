@@ -1,12 +1,5 @@
 import {Link} from "react-router-dom";
-import type {Todo} from "../App.tsx";
-import * as React from "react";
-
-interface TodosProp{
-    todos : Todo[],
-    deleteTodo : (id : number) => void,
-    doneTodo : (id : number) => void,
-}
+import type {TodosProp} from "../types";
 
 const Todos = ({ todos,deleteTodo,doneTodo } : TodosProp) => {
     return (

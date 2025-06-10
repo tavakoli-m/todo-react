@@ -1,19 +1,15 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
-import type {Todo} from "../App.tsx";
 import {useState} from "react";
 import * as React from "react";
+import type {EditTodoProp} from "../types";
 
-interface EditTodoProps{
-    editTodo : (id : number,name : string) => void;
-    getTodo : (id: number) => Todo|undefined
-}
 
-const EditTodo = ({ editTodo,getTodo } : EditTodoProps) => {
+
+const EditTodo = ({ editTodo,getTodo } : EditTodoProp) => {
     const { id } = useParams()
-    const todo = getTodo(Number(id))
+    const todo = getTodo(Number(id)) || undefined
     const navigate = useNavigate()
-
-    const [name,setName] = useState<string>(todo.name)
+    const [name,setName] = useState<string|undefined>(todo?.name)
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)

@@ -1,13 +1,11 @@
 import {Link, useNavigate} from "react-router-dom";
 import * as React from "react";
 import {useState} from "react";
+import type {AddTodoProp} from "../types";
 
-interface AddTodoProps {
-    addNewTodo : (name : string) => void;
-}
 
-const AddTodo = ({ addNewTodo } : AddTodoProps) => {
 
+const AddTodo = ({ addNewTodo } : AddTodoProp) => {
     const [name,setName] = useState<string>("")
     const navigate = useNavigate();
 
